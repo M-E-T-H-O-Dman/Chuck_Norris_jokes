@@ -1,0 +1,52 @@
+
+<html>
+  <head>
+    <title>Joke of the day</title>
+    <h1>Go ahead, click on Chuck. If you think you're man enough!</h1>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+	  <form>
+	   <input type="image" src="images/chuck.png" name="Generate Joke"  id="generateJoke" >
+	  </form>
+		
+	<ul id='joke'>
+    </ul>
+   
+    <script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
+    <script>
+      $(document).ready(function(){
+        $('#generateJoke').on('click', function(event){
+			event.preventDefault();
+
+			var uri = 'http://api.icndb.com/jokes/random';
+
+		    $.get(uri, function(joke) {  
+		    	// console.log(joke);
+				$('<li class="joke">' + joke.value.joke +'</li>').prependTo('#joke');
+
+				$("#joke li:gt(0)").fadeOut(function(){
+          		$(this).remove();
+        		});
+			});
+        });
+	  });
+    </script>
+  </body>
+</html>
+
+
+<!-- $(document).ready(function(){
+        $('#add_profile').on('submit', function(event){
+          event.preventDefault();
+          var url = 'https://api.github.com/users/' + $('#username').val();
+
+          $.get(url, function(user){
+            $('<div class="profile"><div class="left"><img src="' + user.avatar_url + '"></div><div class="right"><h3><a href="' + user.html_url + '">' + user.login + '</a></h3><h4>Repos: ' + user.public_repos + '</h4><h4>Followers: ' + user.followers + '</h4></div><br clear="all"></div>').prependTo('.profile-container').slideDown();
+          }).fail(function(){
+            alert('Could not find the user called ' + $('#username').val());
+          }).always(function(){
+            $('#username').val('');
+          })
+        });
+      }); -->
